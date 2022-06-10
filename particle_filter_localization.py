@@ -43,6 +43,8 @@
 #  [1,0] - down
 #  [-1,0] - up
 
+import numpy as np
+
 
 def create_map(orig_map, fill_value):
     q = [x[:] for x in orig_map]
@@ -128,3 +130,6 @@ if __name__ == '__main__':
     motions = [[0, 0], [0, 1], [1, 0], [1, 0], [0, 1]]
     p = localize(colors, measurements, motions, sensor_right=0.7, p_move=0.8)
     show(p)  # displays your answer
+    a = np.array(p)
+    y, x = np.unravel_index(a.argmax(), a.shape)
+    print('Guess robot should be in [{:.0f}, {:.0f}] with probability {:.1f}%'.format(x, y, p[y][x] * 100.0))
